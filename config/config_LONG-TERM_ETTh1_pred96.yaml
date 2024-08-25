@@ -1,0 +1,61 @@
+# Basic config
+task_name: long_term_forecast # task name, options: [long_term_forecast, short_term_forecast, imputation, classification, anomaly_detection]
+is_training: 1 # status
+model_id: long_term_forecast_ETTh1_512_96 # model id
+model_comment: TimeLLM-ETTh1 # prefix when saving test results
+model: TimeLLM # model name, options: [Autoformer, DLinear]
+seed: 2021 # random seed
+
+# Data loader
+data: ETTh1 # dataset type
+root_path: ./dataset/ETT-small # root path of the data file
+data_path: ETTh1.csv # data file
+features: M # forecasting task, options: [M, S, MS]; M:multivariate predict multivariate, S: univariate predict univariate, MS:multivariate predict univariate
+target: OT # target feature in S or MS task
+loader: modal # dataset type
+freq: h # freq for time features encoding, options: [s:secondly, t:minutely, h:hourly, d:daily, b:business days, w:weekly, m:monthly]; more detailed freq like 15min or 3h can be used
+checkpoints: ./checkpoints/ # location of model checkpoints
+
+# Forecasting task
+seq_len: 512 # input sequence length
+label_len: 48 # start token length
+pred_len: 96 # prediction sequence length
+seasonal_patterns: Monthly # subset for M4
+
+# Model define
+enc_in: 7 # encoder input size
+dec_in: 7 # decoder input size
+c_out: 7 # output size
+d_model: 32 # dimension of model
+n_heads: 8 # num of heads
+e_layers: 2 # num of encoder layers
+d_layers: 1 # num of decoder layers
+d_ff: 128 # dimension of fully connected network (FCN)
+moving_avg: 25 # window size of moving average
+factor: 3 # attention factor
+dropout: 0.1 # dropout rate
+embed: timeF # time features encoding, options: [timeF, fixed, learned]
+activation: gelu # activation function
+output_attention: false # whether to output attention in encoder
+patch_len: 16 # patch length
+stride: 8 # stride
+prompt_domain: 0 # prompt domain
+llm_model: GPT2 # LLM model options: [LLAMA, GPT2, BERT]
+llm_dim: 768 # LLM model dimension; LLama7b: 4096, GPT2-small: 768, BERT-base: 768
+
+# Optimization
+num_workers: 0 # number of workers for data loader
+itr: 1 # number of experiment iterations
+train_epochs: 100 # number of training epochs
+align_epochs: 10 # number of alignment epochs
+batch_size: 24 # batch size for training input data
+eval_batch_size: 8 # batch size for model evaluation
+patience: 10 # early stopping patience
+learning_rate: 0.01 # optimizer learning rate
+des: test # experiment description
+loss: MSE # loss function
+lradj: type1 # adjust learning rate
+pct_start: 0.2 # percentage of starting learning rate
+use_amp: false # use automatic mixed precision training
+llm_layers: 6 # number of layers in LLM
+percent: 100 # percentage
