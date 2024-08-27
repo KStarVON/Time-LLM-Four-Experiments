@@ -1,0 +1,3 @@
+short_term_forecast_m4_Yearly_TimeLLM_m4_ftM_sl96_ll48_pl96_dm8_nh8_el2_dl1_df32_fc1_ebtimeF_test_0  
+smape:{'Yearly': 13.555, 'Average': 3.118}, mape:{'Yearly': 17.023, 'Average': 3.915}, mase:{'Yearly': 3.038, 'Average': 0.699}, owa:{'Yearly': 0.797, 'Average': 0.797}
+
